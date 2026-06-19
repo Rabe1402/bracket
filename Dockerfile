@@ -9,9 +9,9 @@ COPY frontend .
 
 ARG VITE_API_BASE_URL=/api
 
-RUN apk add pnpm && \
-    CI=true pnpm install && \
-    VITE_API_BASE_URL=${VITE_API_BASE_URL} pnpm build
+RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN CI=true pnpm install
+RUN VITE_API_BASE_URL=/api pnpm build
 
 # Build backend image that also serves frontend (stored in `/app/frontend-dist`)
 FROM python:3.14-alpine3.22
