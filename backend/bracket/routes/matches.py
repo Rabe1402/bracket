@@ -38,7 +38,6 @@ from bracket.utils.id_types import MatchId, StageItemId, TournamentId
 from bracket.utils.types import assert_some
 
 router = APIRouter(prefix=config.api_prefix)
-router = APIRouter()
 logger = get_logger("bracket")
 
 
