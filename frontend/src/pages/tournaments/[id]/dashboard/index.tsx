@@ -130,6 +130,7 @@ export function Schedule({
   const matches: any[] = Object.values(matchesLookup);
   const sortedMatches = matches
     .filter((m1: any) => m1.match.start_time != null)
+    .filter((m1: any) => m1.match.played === false)
     .sort(
       (m1: any, m2: any) =>
         compareDateTime(m1.match.start_time, m2.match.start_time) ||
@@ -140,20 +141,6 @@ export function Schedule({
 
   for (let c = 0; c < sortedMatches.length; c += 1) {
     const data = sortedMatches[c];
-
-    if (c < 1 || sortedMatches[c - 1].match.start_time) {
-      const startTime = formatTime(data.match.start_time);
-
-      if (c < 1 || startTime !== formatTime(sortedMatches[c - 1].match.start_time)) {
-        rows.push(
-          <Center mt="md" key={`time-${c}`}>
-            <Text size="xl" fw={800}>
-              {startTime}
-            </Text>
-          </Center>
-        );
-      }
-    }
 
     rows.push(
       <ScheduleRow
